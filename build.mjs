@@ -23,7 +23,7 @@ if (!site.email) warnings.push('site.email is empty — email links are hidden.'
 if (!socials.length) warnings.push('No social links set — social icons are hidden.');
 
 // ── Shared chrome ────────────────────────────────────────────
-function layout({ title, description, base = '', active = '', body, bodyClass = '' }) {
+function layout({ title, description, base = '', active = '', body, bodyClass = '', path = '' }) {
   const pageTitle = title ? `${title} — ${site.name}` : `${site.name} — ${site.role}`;
   const desc = description || site.intro;
   const nav = [
@@ -41,7 +41,7 @@ function layout({ title, description, base = '', active = '', body, bodyClass = 
 <meta property="og:title" content="${esc(pageTitle)}">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:type" content="website">
-${site.url ? `<meta property="og:url" content="${esc(site.url)}">` : ''}
+${site.url && path !== null ? `<meta property="og:url" content="${esc(site.url + path)}">\n<link rel="canonical" href="${esc(site.url + path)}">` : ''}
 <meta name="theme-color" content="#0b0b0d">
 <link rel="icon" href="${base}assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -299,7 +299,7 @@ function work() {
     <p class="note mono reveal">Visuals are schematic recreations — production data and screens are confidential.</p>
   </div>
 </section>`;
-  return layout({ title: 'Work', description: 'Case studies by Sam — enterprise UX, dashboards and workflow design.', base, active: 'Work', body });
+  return layout({ title: 'Work', description: 'Case studies by Sam — enterprise UX, dashboards and workflow design.', base, active: 'Work', body, path: 'work.html' });
 }
 
 function about() {
@@ -387,7 +387,7 @@ ${
 </section>`
     : ''
 }`;
-  return layout({ title: 'About', description: `About ${site.name} — ${site.role}.`, base, active: 'About', body });
+  return layout({ title: 'About', description: `About ${site.name} — ${site.role}.`, base, active: 'About', body, path: 'about.html' });
 }
 
 function contact() {
@@ -418,7 +418,7 @@ function contact() {
     </form>
   </div>
 </section>`;
-  return layout({ title: 'Contact', description: `Contact ${site.name}.`, base, active: 'Contact', body });
+  return layout({ title: 'Contact', description: `Contact ${site.name}.`, base, active: 'Contact', body, path: 'contact.html' });
 }
 
 function caseStudy(p, i) {
@@ -497,7 +497,7 @@ function caseStudy(p, i) {
 </a>
 
 <div class="lightbox" hidden><button type="button" class="lightbox-close" aria-label="Close">×</button><div class="lightbox-stage"></div></div>`;
-  return layout({ title: `${p.title} — ${p.subtitle}`, description: p.summary, base, active: 'Work', body, bodyClass: 'page-case' });
+  return layout({ title: `${p.title} — ${p.subtitle}`, description: p.summary, base, active: 'Work', body, bodyClass: 'page-case', path: `work/${p.slug}.html` });
 }
 
 function notFound() {
@@ -510,7 +510,9 @@ function notFound() {
     <a class="btn btn-primary" href="index.html">Back home →</a>
   </div>
 </section>`;
-  return layout({ title: 'Not found', body });
+  // GitHub Pages serves this file at any missing path, so links must be absolute.
+  const base = site.url ? new URL(site.url).pathname : '/';
+  return layout({ title: 'Not found', base, body: body.replace('href="index.html"', `href="${base}index.html"`), path: null });
 }
 
 // ── Write ────────────────────────────────────────────────────

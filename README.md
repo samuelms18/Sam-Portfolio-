@@ -34,7 +34,7 @@ The build prints a warning for anything that's still missing. Empty links (email
 
 1. Merge this branch into `main`.
 2. Repo → **Settings → Pages** → *Deploy from a branch* → `main` / `/docs` → Save.
-3. Site goes live at `https://<your-username>.github.io/Sam-Portfolio-/`. Put that URL into `site.url` in `content.mjs`.
+3. Live at **https://samuelms18.github.io/Sam-Portfolio-/** (set as `site.url` in `content.mjs`).
 
 ## Content checklist — what Sam still needs to add
 

@@ -14,7 +14,7 @@ export const site = {
   introAlt: 'I design thoughtful digital experiences that make complex products simple, intuitive, and human.',
   support:
     'Designing enterprise products, dashboards and digital experiences that turn complex workflows into simple experiences.',
-  url: '', // TODO(Sam): e.g. https://yourname.github.io/Sam-Portfolio-/  (used for social previews)
+  url: 'https://samuelms18.github.io/Sam-Portfolio-/', // used for social previews
 
   // Leave blank to hide. Nothing empty is ever rendered on the site.
   email: 'stuvat18@gmail.com',
