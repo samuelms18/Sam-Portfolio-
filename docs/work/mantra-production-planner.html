@@ -15,11 +15,17 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+<script>(function(){var d=document.documentElement;try{var t=localStorage.getItem('theme');if(t)d.dataset.theme=t;}catch(e){}
+try{if(!sessionStorage.getItem('loaded')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('is-loading');setTimeout(function(){d.classList.remove('is-loading')},5000);}}catch(e){}})();</script>
 <link rel="stylesheet" href="../assets/css/style.css">
 <script src="../assets/js/main.js" defer></script>
 </head>
 <body class="page-case">
+<div class="preloader" aria-hidden="true">
+  <div class="pl-mark">Sam<i>.</i></div>
+  <div class="pl-meta mono"><span>UI/UX Designer &amp; UI/UX Developer</span><span class="pl-count">000</span></div>
+  <div class="pl-bar"><b></b></div>
+</div>
 <a class="skip" href="#main">Skip to content</a>
 <div class="grain" aria-hidden="true"></div>
 <div class="cursor" aria-hidden="true"><div class="cursor-dot"></div><div class="cursor-ring"><span></span></div></div>
@@ -85,7 +91,7 @@
       
       <section class="cs-sec reveal" id="context">
         <h2><span class="mono">01</span>Context</h2>
-        <p class="lead">Pharmaceutical production runs on batches — each one tied to products, equipment, materials, schedules and approvals. Planners, floor teams and management all need a view of the same work, but each needs to see it differently.</p>
+        <p class="lead">Pharmaceutical production runs on batches — each one tied to products, equipment, materials, schedules and approvals. Planners, floor teams and management all need a view of the same work, but each needs to see it differently.</p><figure class="photo" data-zoom><img src="https://picsum.photos/seed/pharma-factory/1600/900" alt="" loading="lazy" decoding="async" width="1600" height="900" onerror="this.remove()"></figure>
       </section>
       <section class="cs-sec reveal" id="problem">
         <h2><span class="mono">02</span>Problem</h2>

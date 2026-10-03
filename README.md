@@ -43,7 +43,7 @@ The build prints a warning for anything that's still missing. Empty links (email
 | ~~Professional email~~ ✓ | `site.email` in `src/content.mjs` |
 | LinkedIn (Behance & Dribbble ✓) | `site.socials` |
 | Resume PDF | save as `src/assets/Sam-Resume.pdf` |
-| Profile photo | save as `src/assets/sam.jpg`, then swap the placeholder in `build.mjs` → `about()` (search `TODO(Sam)`) |
+| Profile photo | save as `src/assets/img/sam.jpg` — it replaces the silhouette in the hero and on About automatically |
 | Full name (shown on Contact only) | `site.fullName` |
 | ~~Education~~ ✓ · certifications (optional) | `education` array in `content.mjs` |
 | Contact form delivery (optional) | create a free [Formspree](https://formspree.io) form → paste the endpoint into `site.formEndpoint`. Without it the form opens an email draft. |
@@ -51,6 +51,17 @@ The build prints a warning for anything that's still missing. Empty links (email
 | Real screens (where you're allowed to share them) | add `image` support or replace mocks; blur sensitive data first |
 
 Search the repo for `TODO(Sam)` to find every placeholder.
+
+## Images
+
+| Image | Size & format | Where it's used | Status |
+|---|---|---|---|
+| **Portrait** | 4:5 portrait, at least 1200 × 1500 px, JPG. Plain or softly blurred background, good light, shoulders-up | Hero (arched frame) + About | Silhouette placeholder — save as `src/assets/img/sam.jpg` |
+| **Case-study context photos** (1 per project) | 16:9 landscape, at least 1600 × 900 px | Context section of each case study | Random stock from picsum.photos — set `photo` per project in `content.mjs` |
+| **Project screens** (3–6 per project) | Cover 16:10 at least 2400 px wide; key screens, wireframes, flows. PNG. Blur confidential data | Wireframes / Visual design sections | Schematic mocks drawn in code |
+| **Social share image** (optional) | 1200 × 630 px | Link previews on LinkedIn/WhatsApp | Not set |
+
+Turn the hero portrait off with `heroPhoto: false` in `content.mjs`.
 
 ## Design system (quick reference)
 

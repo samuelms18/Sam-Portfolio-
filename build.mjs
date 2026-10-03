@@ -22,6 +22,20 @@ if (!hasResume) warnings.push(`Resume not found at src/${site.resume} — resume
 if (!site.email) warnings.push('site.email is empty — email links are hidden.');
 if (!socials.length) warnings.push('No social links set — social icons are hidden.');
 
+const hasPhoto = site.photo && existsSync(join(SRC, site.photo));
+if (!hasPhoto) warnings.push(`Photo not found at src/${site.photo} — showing the portrait placeholder.`);
+
+// Your photo when it exists, otherwise a silhouette that shows how it will sit.
+function portrait(base) {
+  if (hasPhoto) return `<img class="portrait-img" src="${base}${site.photo}" alt="Portrait of ${esc(site.name)}" width="800" height="1000" decoding="async">`;
+  return `<svg class="portrait-ph" viewBox="0 0 400 500" role="img" aria-label="Photo coming soon">
+    <defs><linearGradient id="sil" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="sil-a"/><stop offset="1" class="sil-b"/></linearGradient></defs>
+    <rect width="400" height="500" class="sil-bg"/>
+    <circle cx="200" cy="190" r="78" fill="url(#sil)" class="sil-shape"/>
+    <path d="M40 500C52 372 128 318 200 318s148 54 160 182Z" fill="url(#sil)" class="sil-shape"/>
+  </svg>`;
+}
+
 // ── Shared chrome ────────────────────────────────────────────
 function layout({ title, description, base = '', active = '', body, bodyClass = '', path = '' }) {
   const pageTitle = title ? `${title} — ${site.name}` : `${site.name} — ${site.role}`;
@@ -47,11 +61,17 @@ ${site.url && path !== null ? `<meta property="og:url" content="${esc(site.url +
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+<script>(function(){var d=document.documentElement;try{var t=localStorage.getItem('theme');if(t)d.dataset.theme=t;}catch(e){}
+try{if(!sessionStorage.getItem('loaded')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('is-loading');setTimeout(function(){d.classList.remove('is-loading')},5000);}}catch(e){}})();</script>
 <link rel="stylesheet" href="${base}assets/css/style.css">
 <script src="${base}assets/js/main.js" defer></script>
 </head>
 <body class="${bodyClass}">
+<div class="preloader" aria-hidden="true">
+  <div class="pl-mark">${esc(site.name)}<i>.</i></div>
+  <div class="pl-meta mono"><span>${esc(site.role)}</span><span class="pl-count">000</span></div>
+  <div class="pl-bar"><b></b></div>
+</div>
 <a class="skip" href="#main">Skip to content</a>
 <div class="grain" aria-hidden="true"></div>
 <div class="cursor" aria-hidden="true"><div class="cursor-dot"></div><div class="cursor-ring"><span></span></div></div>
@@ -196,14 +216,24 @@ const resumeBtn = (base, cls = 'btn btn-ghost') => (hasResume ? `<a class="${cls
 function home() {
   const base = '';
   const body = `
-<section class="hero">
+<section class="hero${site.heroPhoto ? ' hero--photo' : ''}">
   <canvas class="hero-canvas" aria-hidden="true"></canvas>
   <div class="hero-readout mono" aria-hidden="true"><span>complexity</span><i class="hero-meter"><b></b></i><span>clarity</span></div>
   <div class="container hero-inner">
-    <p class="hero-kicker load" style="--d:0"><span class="status"><i class="pulse"></i>Currently at Caplin Point Laboratories</span></p>
-    <h1 class="hero-title" aria-label="${esc(site.intro)}">
-      ${site.heroLines.map((l, i) => `<span class="line load" style="--d:${i + 1}" aria-hidden="true">${esc(l).replace(/\*(.+?)\*/g, '<em>$1</em>')}</span>`).join('')}
-    </h1>
+    <div class="hero-copy">
+      <p class="hero-kicker load" style="--d:0"><span class="status"><i class="pulse"></i>Currently at Caplin Point Laboratories</span></p>
+      <h1 class="hero-title" aria-label="${esc(site.intro)}">
+        ${(site.heroPhoto ? site.heroLinesPhoto : site.heroLines).map((l, i) => `<span class="line load" style="--d:${i + 1}" aria-hidden="true">${esc(l).replace(/\*(.+?)\*/g, '<em>$1</em>')}</span>`).join('')}
+      </h1>
+    </div>
+    ${
+      site.heroPhoto
+        ? `<figure class="hero-portrait load" style="--d:2">
+      ${portrait(base)}
+      <figcaption class="hero-tag mono"><span>${esc(site.name)}</span><span>${esc(site.location)}</span></figcaption>
+    </figure>`
+        : ''
+    }
     <div class="hero-foot load" style="--d:4">
       <p class="hero-sub">${esc(site.role)} — ${esc(site.support)}</p>
       <div class="hero-ctas">
@@ -316,8 +346,7 @@ function about() {
 <section class="section section-tight">
   <div class="container about-story">
     <div class="portrait reveal">
-      <!-- TODO(Sam): replace with <img src="assets/sam.jpg" alt="Portrait of Sam"> -->
-      <div class="portrait-ph" aria-hidden="true"><span>${esc(site.name[0])}</span></div>
+      ${portrait(base)}
     </div>
     <div class="story reveal">
       ${bio.map((p) => `<p>${esc(p)}</p>`).join('')}
@@ -425,7 +454,14 @@ function caseStudy(p, i) {
   const base = '../';
   const next = projects[(i + 1) % projects.length];
   const sections = [
-    ['context', 'Context', p.context && `<p class="lead">${esc(p.context)}</p>`],
+    [
+      'context',
+      'Context',
+      p.context &&
+        `<p class="lead">${esc(p.context)}</p>${
+          p.photo ? `<figure class="photo" data-zoom><img src="${esc(p.photo)}" alt="${esc(p.photoAlt || '')}" loading="lazy" decoding="async" width="1600" height="900" onerror="this.remove()"></figure>` : ''
+        }`,
+    ],
     ['problem', 'Problem', p.problem && `<blockquote class="problem">${esc(p.problem)}</blockquote>`],
     ['role', 'My role', p.myRole && `<p>${esc(p.myRole)}</p>${tags(p.tools, 'chips')}`],
     ['understanding', 'Research & understanding', p.understanding && `<ul class="checks">${p.understanding.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>`],

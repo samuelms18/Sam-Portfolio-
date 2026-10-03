@@ -15,11 +15,17 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+<script>(function(){var d=document.documentElement;try{var t=localStorage.getItem('theme');if(t)d.dataset.theme=t;}catch(e){}
+try{if(!sessionStorage.getItem('loaded')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('is-loading');setTimeout(function(){d.classList.remove('is-loading')},5000);}}catch(e){}})();</script>
 <link rel="stylesheet" href="assets/css/style.css">
 <script src="assets/js/main.js" defer></script>
 </head>
 <body class="page-home">
+<div class="preloader" aria-hidden="true">
+  <div class="pl-mark">Sam<i>.</i></div>
+  <div class="pl-meta mono"><span>UI/UX Designer &amp; UI/UX Developer</span><span class="pl-count">000</span></div>
+  <div class="pl-bar"><b></b></div>
+</div>
 <a class="skip" href="#main">Skip to content</a>
 <div class="grain" aria-hidden="true"></div>
 <div class="cursor" aria-hidden="true"><div class="cursor-dot"></div><div class="cursor-ring"><span></span></div></div>
@@ -46,14 +52,25 @@
 
 <main id="main">
 
-<section class="hero">
+<section class="hero hero--photo">
   <canvas class="hero-canvas" aria-hidden="true"></canvas>
   <div class="hero-readout mono" aria-hidden="true"><span>complexity</span><i class="hero-meter"><b></b></i><span>clarity</span></div>
   <div class="container hero-inner">
-    <p class="hero-kicker load" style="--d:0"><span class="status"><i class="pulse"></i>Currently at Caplin Point Laboratories</span></p>
-    <h1 class="hero-title" aria-label="I turn complex workflows into simple, purposeful digital experiences.">
-      <span class="line load" style="--d:1" aria-hidden="true">I turn complex workflows</span><span class="line load" style="--d:2" aria-hidden="true">into <em>simple</em>, purposeful</span><span class="line load" style="--d:3" aria-hidden="true">digital experiences.</span>
-    </h1>
+    <div class="hero-copy">
+      <p class="hero-kicker load" style="--d:0"><span class="status"><i class="pulse"></i>Currently at Caplin Point Laboratories</span></p>
+      <h1 class="hero-title" aria-label="I turn complex workflows into simple, purposeful digital experiences.">
+        <span class="line load" style="--d:1" aria-hidden="true">I turn complex</span><span class="line load" style="--d:2" aria-hidden="true">workflows into</span><span class="line load" style="--d:3" aria-hidden="true"><em>simple</em>, purposeful</span><span class="line load" style="--d:4" aria-hidden="true">digital experiences.</span>
+      </h1>
+    </div>
+    <figure class="hero-portrait load" style="--d:2">
+      <svg class="portrait-ph" viewBox="0 0 400 500" role="img" aria-label="Photo coming soon">
+    <defs><linearGradient id="sil" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="sil-a"/><stop offset="1" class="sil-b"/></linearGradient></defs>
+    <rect width="400" height="500" class="sil-bg"/>
+    <circle cx="200" cy="190" r="78" fill="url(#sil)" class="sil-shape"/>
+    <path d="M40 500C52 372 128 318 200 318s148 54 160 182Z" fill="url(#sil)" class="sil-shape"/>
+  </svg>
+      <figcaption class="hero-tag mono"><span>Sam</span><span>India</span></figcaption>
+    </figure>
     <div class="hero-foot load" style="--d:4">
       <p class="hero-sub">UI/UX Designer &amp; UI/UX Developer — Designing enterprise products, dashboards and digital experiences that turn complex workflows into simple experiences.</p>
       <div class="hero-ctas">

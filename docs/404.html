@@ -14,11 +14,17 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+<script>(function(){var d=document.documentElement;try{var t=localStorage.getItem('theme');if(t)d.dataset.theme=t;}catch(e){}
+try{if(!sessionStorage.getItem('loaded')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('is-loading');setTimeout(function(){d.classList.remove('is-loading')},5000);}}catch(e){}})();</script>
 <link rel="stylesheet" href="/Sam-Portfolio-/assets/css/style.css">
 <script src="/Sam-Portfolio-/assets/js/main.js" defer></script>
 </head>
 <body class="">
+<div class="preloader" aria-hidden="true">
+  <div class="pl-mark">Sam<i>.</i></div>
+  <div class="pl-meta mono"><span>UI/UX Designer &amp; UI/UX Developer</span><span class="pl-count">000</span></div>
+  <div class="pl-bar"><b></b></div>
+</div>
 <a class="skip" href="#main">Skip to content</a>
 <div class="grain" aria-hidden="true"></div>
 <div class="cursor" aria-hidden="true"><div class="cursor-dot"></div><div class="cursor-ring"><span></span></div></div>
