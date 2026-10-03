@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Matrimonial Plugin — Custom WordPress Platform — Sam</title>
+<meta name="description" content="A custom WordPress matrimonial platform with dynamic profiles, dependent forms, and AJAX-powered interactions.">
+<meta property="og:title" content="Matrimonial Plugin — Custom WordPress Platform — Sam">
+<meta property="og:description" content="A custom WordPress matrimonial platform with dynamic profiles, dependent forms, and AJAX-powered interactions.">
+<meta property="og:type" content="website">
+
+<meta name="theme-color" content="#0b0b0d">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+<link rel="stylesheet" href="../assets/css/style.css">
+<script src="../assets/js/main.js" defer></script>
+</head>
+<body class="page-case">
+<a class="skip" href="#main">Skip to content</a>
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"><div class="cursor-dot"></div><div class="cursor-ring"><span></span></div></div>
+<div class="progress" aria-hidden="true"></div>
+
+<header class="nav">
+  <a class="brand" href="../index.html" aria-label="Sam — home">
+    <span class="brand-mark">Sam<i>.</i></span>
+    <span class="brand-role">UI/UX Designer &amp; UI/UX Developer</span>
+  </a>
+  <nav class="nav-links" aria-label="Primary">
+    <a href="../work.html" aria-current="page">Work</a><a href="../about.html">About</a><a href="../contact.html">Contact</a>
+  </nav>
+  <div class="nav-actions">
+    
+    <button class="theme-toggle" type="button" aria-label="Toggle light and dark theme"><span class="tt-sun"></span><span class="tt-moon"></span></button>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"><span></span><span></span></button>
+  </div>
+</header>
+<div class="mobile-menu" id="mobile-menu" hidden>
+  <a href="../work.html" style="--i:0"><small>01</small>Work</a><a href="../about.html" style="--i:1"><small>02</small>About</a><a href="../contact.html" style="--i:2"><small>03</small>Contact</a>
+  <a href="../index.html" style="--i:3"><small>04</small>Home</a>
+</div>
+
+<main id="main">
+
+<section class="cs-hero" style="--h:340">
+  <div class="container">
+    <a class="back mono load" style="--d:0" href="../work.html">← All work</a>
+    <span class="eyebrow load" style="--d:0">Case study 06 · Matrimonial services</span>
+    <h1 class="page-title load" style="--d:1">Matrimonial Plugin <em>Custom WordPress Platform</em></h1>
+    <p class="page-lede load" style="--d:2">A custom WordPress matrimonial platform with dynamic profiles, dependent forms, and AJAX-powered interactions.</p>
+    <dl class="cs-meta load" style="--d:3">
+      <div><dt>Role</dt><dd>UI/UX Designer + Developer</dd></div>
+      <div><dt>Tools</dt><dd>WordPress, Elementor, PHP, MySQL / $wpdb, AJAX</dd></div>
+      <div><dt>Domain</dt><dd>Matrimonial services</dd></div>
+      <div><dt>Platform</dt><dd>WordPress</dd></div>
+    </dl>
+    <figure class="figure cs-cover load" style="--d:4" data-zoom><div class="mock mock--form" style="--h:340" aria-hidden="true">
+  <div class="mock-win">
+    <div class="mock-top"><span></span><span></span><span></span><em>Matrimonial · Profile</em></div>
+    <div class="mk-form">
+      <div class="mk-profile"><div class="av"></div><i class="sk"></i><i class="sk sk-sm"></i><i class="sk sk-xs"></i><i class="sk sk-xs"></i><i class="sk sk-xs"></i></div>
+      <div class="mk-dep">
+        <div class="mk-sel"><small>Country</small><div class="mk-field"><span>▾</span></div></div><div class="mk-arrow">↓</div><div class="mk-sel"><small>State</small><div class="mk-field"><span>▾</span></div></div><div class="mk-arrow">↓</div><div class="mk-sel open"><small>City</small><div class="mk-field"><span>▾</span></div></div>
+        <div class="mk-ajax"><i></i>AJAX · updated without reload</div>
+      </div>
+    </div>
+  </div></div></figure>
+    <p class="note mono">Visuals are schematic recreations — production data and screens are confidential.</p>
+  </div>
+</section>
+
+<section class="section section-tight">
+  <div class="container cs-layout">
+    <aside class="cs-toc" aria-label="Case study sections">
+      <span class="mono">Contents</span>
+      <ol><li><a href="#context">Context</a></li><li><a href="#problem">Problem</a></li><li><a href="#role">My role</a></li><li><a href="#understanding">Research & understanding</a></li><li><a href="#process">UX process</a></li><li><a href="#wireframes">Wireframes</a></li><li><a href="#visual">Visual design</a></li><li><a href="#development">Development</a></li><li><a href="#outcome">Result</a></li><li><a href="#learnings">Learnings</a></li></ol>
+      <div class="cs-focus">
+        <span class="mono">Focus</span>
+        <ul class="tags tags-sm"><li>Product design</li><li>Custom WordPress development</li><li>Dynamic forms</li><li>Dependent dropdowns</li><li>Shortcodes</li><li>Plugin architecture</li><li>Frontend UX</li></ul>
+      </div>
+    </aside>
+    <article class="cs-body" style="--h:340">
+      
+      <section class="cs-sec reveal" id="context">
+        <h2><span class="mono">01</span>Context</h2>
+        <p class="lead">A matrimonial platform depends on detailed profiles and a smooth way to create and browse them — inside WordPress, where the client manages the site.</p>
+      </section>
+      <section class="cs-sec reveal" id="problem">
+        <h2><span class="mono">02</span>Problem</h2>
+        <blockquote class="problem">Profile creation involves many interdependent fields. Off-the-shelf form tools could not handle the dependent logic and data structure cleanly, so the platform needed a custom plugin.</blockquote>
+      </section>
+      <section class="cs-sec reveal" id="role">
+        <h2><span class="mono">03</span>My role</h2>
+        <p>Designer and developer — I designed the experience and built the plugin end to end.</p><ul class="chips"><li>WordPress</li><li>Elementor</li><li>PHP</li><li>MySQL / $wpdb</li><li>AJAX</li></ul>
+      </section>
+      <section class="cs-sec reveal" id="understanding">
+        <h2><span class="mono">04</span>Research & understanding</h2>
+        <ul class="checks"><li>Mapped the profile data model and the dependencies between fields.</li><li>Identified where users would struggle with long forms.</li><li>Planned how the plugin would integrate with WordPress and Elementor pages.</li></ul>
+      </section>
+      <section class="cs-sec reveal" id="process">
+        <h2><span class="mono">05</span>UX process</h2>
+        <ol class="steps"><li><span class="mono">01</span>Designed profile creation and browsing flows.</li><li><span class="mono">02</span>Designed dependent dropdowns so later options adapt to earlier answers.</li><li><span class="mono">03</span>Planned a plugin architecture with shortcodes for flexible placement.</li></ol>
+      </section>
+      <section class="cs-sec reveal" id="wireframes">
+        <h2><span class="mono">06</span>Wireframes</h2>
+        <p>Wireframes for profile forms and profile views.</p><figure class="figure" data-zoom><div class="mock mock--form mock--wire" style="--h:340" aria-hidden="true">
+  <div class="mock-win">
+    <div class="mock-top"><span></span><span></span><span></span><em>Matrimonial · Profile</em></div>
+    <div class="mk-form">
+      <div class="mk-profile"><div class="av"></div><i class="sk"></i><i class="sk sk-sm"></i><i class="sk sk-xs"></i><i class="sk sk-xs"></i><i class="sk sk-xs"></i></div>
+      <div class="mk-dep">
+        <div class="mk-sel"><small>Country</small><div class="mk-field"><span>▾</span></div></div><div class="mk-arrow">↓</div><div class="mk-sel"><small>State</small><div class="mk-field"><span>▾</span></div></div><div class="mk-arrow">↓</div><div class="mk-sel open"><small>City</small><div class="mk-field"><span>▾</span></div></div>
+        <div class="mk-ajax"><i></i>AJAX · updated without reload</div>
+      </div>
+    </div>
+  </div></div><figcaption class="mono">Low-fidelity structure · schematic</figcaption></figure>
+      </section>
+      <section class="cs-sec reveal" id="visual">
+        <h2><span class="mono">07</span>Visual design</h2>
+        <p>A friendly, approachable interface consistent with the site's Elementor design.</p><figure class="figure" data-zoom><div class="mock mock--form" style="--h:340" aria-hidden="true">
+  <div class="mock-win">
+    <div class="mock-top"><span></span><span></span><span></span><em>Matrimonial · Profile</em></div>
+    <div class="mk-form">
+      <div class="mk-profile"><div class="av"></div><i class="sk"></i><i class="sk sk-sm"></i><i class="sk sk-xs"></i><i class="sk sk-xs"></i><i class="sk sk-xs"></i></div>
+      <div class="mk-dep">
+        <div class="mk-sel"><small>Country</small><div class="mk-field"><span>▾</span></div></div><div class="mk-arrow">↓</div><div class="mk-sel"><small>State</small><div class="mk-field"><span>▾</span></div></div><div class="mk-arrow">↓</div><div class="mk-sel open"><small>City</small><div class="mk-field"><span>▾</span></div></div>
+        <div class="mk-ajax"><i></i>AJAX · updated without reload</div>
+      </div>
+    </div>
+  </div></div><figcaption class="mono">High-fidelity direction · schematic recreation</figcaption></figure>
+      </section>
+      <section class="cs-sec reveal" id="development">
+        <h2><span class="mono">08</span>Development</h2>
+        <p>Built a custom plugin in PHP with MySQL via $wpdb, AJAX-powered dependent fields and shortcodes for embedding features in Elementor pages.</p>
+      </section>
+      <section class="cs-sec reveal" id="outcome">
+        <h2><span class="mono">09</span>Result</h2>
+        <ul class="outcomes"><li>Dynamic profiles backed by a custom data structure.</li><li>Dependent forms that update instantly without page reloads.</li><li>Reusable shortcodes the client can place anywhere on the site.</li></ul>
+      </section>
+      <section class="cs-sec reveal" id="learnings">
+        <h2><span class="mono">10</span>Learnings</h2>
+        <p class="lead">Building what I designed showed me exactly where design decisions create technical complexity — a perspective I still use when designing for developers.</p>
+      </section>
+    </article>
+  </div>
+</section>
+
+<a class="next-proj" href="mantra-production-planner.html" data-cursor="Next" style="--h:32">
+  <div class="container">
+    <span class="eyebrow">Next case study</span>
+    <span class="next-title">MANTRA <em>Production Planner</em> <span class="arrow" aria-hidden="true">→</span></span>
+  </div>
+</a>
+
+<div class="lightbox" hidden><button type="button" class="lightbox-close" aria-label="Close">×</button><div class="lightbox-stage"></div></div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <p class="footer-cta reveal">Let's make something<br><em>complex feel simple.</em></p>
+    <div class="footer-row">
+      <div class="footer-links">
+        <a href="../contact.html" class="link-u">Get in touch →</a>
+        
+      </div>
+      <div class="footer-meta">
+        <span>© <span data-year></span> Sam · Designed &amp; built by Sam</span>
+        <button class="to-top" type="button">Back to top ↑</button>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
