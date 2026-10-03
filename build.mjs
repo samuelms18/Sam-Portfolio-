@@ -22,8 +22,16 @@ if (!hasResume) warnings.push(`Resume not found at src/${site.resume} — resume
 if (!site.email) warnings.push('site.email is empty — email links are hidden.');
 if (!socials.length) warnings.push('No social links set — social icons are hidden.');
 
+const hasPhoto = site.photo && existsSync(join(SRC, site.photo));
+if (!hasPhoto) warnings.push(`Photo not found at src/${site.photo} — photo slots are hidden.`);
+const showHeroPhoto = site.heroPhoto && hasPhoto;
+
+// Your photo. Only rendered once src/<site.photo> exists.
+const portrait = (base) =>
+  `<img class="portrait-img" src="${base}${site.photo}" alt="Portrait of ${esc(site.name)}" width="800" height="1000" decoding="async">`;
+
 // ── Shared chrome ────────────────────────────────────────────
-function layout({ title, description, base = '', active = '', body, bodyClass = '' }) {
+function layout({ title, description, base = '', active = '', body, bodyClass = '', path = '' }) {
   const pageTitle = title ? `${title} — ${site.name}` : `${site.name} — ${site.role}`;
   const desc = description || site.intro;
   const nav = [
@@ -41,17 +49,23 @@ function layout({ title, description, base = '', active = '', body, bodyClass = 
 <meta property="og:title" content="${esc(pageTitle)}">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:type" content="website">
-${site.url ? `<meta property="og:url" content="${esc(site.url)}">` : ''}
+${site.url && path !== null ? `<meta property="og:url" content="${esc(site.url + path)}">\n<link rel="canonical" href="${esc(site.url + path)}">` : ''}
 <meta name="theme-color" content="#0b0b0d">
 <link rel="icon" href="${base}assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}})();</script>
+<script>(function(){var d=document.documentElement;try{var t=localStorage.getItem('theme');if(t)d.dataset.theme=t;}catch(e){}
+try{if(!sessionStorage.getItem('loaded')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('is-loading');setTimeout(function(){d.classList.remove('is-loading')},5000);}}catch(e){}})();</script>
 <link rel="stylesheet" href="${base}assets/css/style.css">
 <script src="${base}assets/js/main.js" defer></script>
 </head>
 <body class="${bodyClass}">
+<div class="preloader" aria-hidden="true">
+  <div class="pl-mark">${esc(site.name)}<i>.</i></div>
+  <div class="pl-meta mono"><span>${esc(site.role)}</span><span class="pl-count">000</span></div>
+  <div class="pl-bar"><b></b></div>
+</div>
 <a class="skip" href="#main">Skip to content</a>
 <div class="grain" aria-hidden="true"></div>
 <div class="cursor" aria-hidden="true"><div class="cursor-dot"></div><div class="cursor-ring"><span></span></div></div>
@@ -196,14 +210,24 @@ const resumeBtn = (base, cls = 'btn btn-ghost') => (hasResume ? `<a class="${cls
 function home() {
   const base = '';
   const body = `
-<section class="hero">
+<section class="hero${showHeroPhoto ? ' hero--photo' : ''}">
   <canvas class="hero-canvas" aria-hidden="true"></canvas>
   <div class="hero-readout mono" aria-hidden="true"><span>complexity</span><i class="hero-meter"><b></b></i><span>clarity</span></div>
   <div class="container hero-inner">
-    <p class="hero-kicker load" style="--d:0"><span class="status"><i class="pulse"></i>Currently at Caplin Point Laboratories</span></p>
-    <h1 class="hero-title" aria-label="${esc(site.intro)}">
-      ${site.heroLines.map((l, i) => `<span class="line load" style="--d:${i + 1}" aria-hidden="true">${esc(l).replace(/\*(.+?)\*/g, '<em>$1</em>')}</span>`).join('')}
-    </h1>
+    <div class="hero-copy">
+      <p class="hero-kicker load" style="--d:0"><span class="status"><i class="pulse"></i>Currently at Caplin Point Laboratories</span></p>
+      <h1 class="hero-title" aria-label="${esc(site.intro)}">
+        ${(showHeroPhoto ? site.heroLinesPhoto : site.heroLines).map((l, i) => `<span class="line load" style="--d:${i + 1}" aria-hidden="true">${esc(l).replace(/\*(.+?)\*/g, '<em>$1</em>')}</span>`).join('')}
+      </h1>
+    </div>
+    ${
+      showHeroPhoto
+        ? `<figure class="hero-portrait load" style="--d:2">
+      ${portrait(base)}
+      <figcaption class="hero-tag mono"><span>${esc(site.name)}</span><span>${esc(site.location)}</span></figcaption>
+    </figure>`
+        : ''
+    }
     <div class="hero-foot load" style="--d:4">
       <p class="hero-sub">${esc(site.role)} — ${esc(site.support)}</p>
       <div class="hero-ctas">
@@ -299,7 +323,7 @@ function work() {
     <p class="note mono reveal">Visuals are schematic recreations — production data and screens are confidential.</p>
   </div>
 </section>`;
-  return layout({ title: 'Work', description: 'Case studies by Sam — enterprise UX, dashboards and workflow design.', base, active: 'Work', body });
+  return layout({ title: 'Work', description: 'Case studies by Sam — enterprise UX, dashboards and workflow design.', base, active: 'Work', body, path: 'work.html' });
 }
 
 function about() {
@@ -314,11 +338,8 @@ function about() {
 </section>
 
 <section class="section section-tight">
-  <div class="container about-story">
-    <div class="portrait reveal">
-      <!-- TODO(Sam): replace with <img src="assets/sam.jpg" alt="Portrait of Sam"> -->
-      <div class="portrait-ph" aria-hidden="true"><span>${esc(site.name[0])}</span></div>
-    </div>
+  <div class="container about-story${hasPhoto ? '' : ' about-story--text'}">
+    ${hasPhoto ? `<div class="portrait reveal">${portrait(base)}</div>` : ''}
     <div class="story reveal">
       ${bio.map((p) => `<p>${esc(p)}</p>`).join('')}
       <p>Based in ${esc(site.location)}.</p>
@@ -387,7 +408,7 @@ ${
 </section>`
     : ''
 }`;
-  return layout({ title: 'About', description: `About ${site.name} — ${site.role}.`, base, active: 'About', body });
+  return layout({ title: 'About', description: `About ${site.name} — ${site.role}.`, base, active: 'About', body, path: 'about.html' });
 }
 
 function contact() {
@@ -418,14 +439,21 @@ function contact() {
     </form>
   </div>
 </section>`;
-  return layout({ title: 'Contact', description: `Contact ${site.name}.`, base, active: 'Contact', body });
+  return layout({ title: 'Contact', description: `Contact ${site.name}.`, base, active: 'Contact', body, path: 'contact.html' });
 }
 
 function caseStudy(p, i) {
   const base = '../';
   const next = projects[(i + 1) % projects.length];
   const sections = [
-    ['context', 'Context', p.context && `<p class="lead">${esc(p.context)}</p>`],
+    [
+      'context',
+      'Context',
+      p.context &&
+        `<p class="lead">${esc(p.context)}</p>${
+          p.photo ? `<figure class="photo" data-zoom><img src="${esc(p.photo)}" alt="${esc(p.photoAlt || '')}" loading="lazy" decoding="async" width="1600" height="900" onerror="this.remove()"></figure>` : ''
+        }`,
+    ],
     ['problem', 'Problem', p.problem && `<blockquote class="problem">${esc(p.problem)}</blockquote>`],
     ['role', 'My role', p.myRole && `<p>${esc(p.myRole)}</p>${tags(p.tools, 'chips')}`],
     ['understanding', 'Research & understanding', p.understanding && `<ul class="checks">${p.understanding.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>`],
@@ -497,7 +525,7 @@ function caseStudy(p, i) {
 </a>
 
 <div class="lightbox" hidden><button type="button" class="lightbox-close" aria-label="Close">×</button><div class="lightbox-stage"></div></div>`;
-  return layout({ title: `${p.title} — ${p.subtitle}`, description: p.summary, base, active: 'Work', body, bodyClass: 'page-case' });
+  return layout({ title: `${p.title} — ${p.subtitle}`, description: p.summary, base, active: 'Work', body, bodyClass: 'page-case', path: `work/${p.slug}.html` });
 }
 
 function notFound() {
@@ -510,7 +538,9 @@ function notFound() {
     <a class="btn btn-primary" href="index.html">Back home →</a>
   </div>
 </section>`;
-  return layout({ title: 'Not found', body });
+  // GitHub Pages serves this file at any missing path, so links must be absolute.
+  const base = site.url ? new URL(site.url).pathname : '/';
+  return layout({ title: 'Not found', base, body: body.replace('href="index.html"', `href="${base}index.html"`), path: null });
 }
 
 // ── Write ────────────────────────────────────────────────────

@@ -11,10 +11,14 @@ export const site = {
   intro: 'I turn complex workflows into simple, purposeful digital experiences.',
   // The hero headline, one entry per line. *word* is set in italic serif.
   heroLines: ['I turn complex workflows', 'into *simple*, purposeful', 'digital experiences.'],
+  // Shorter lines used when the hero shows your photo beside the headline.
+  heroLinesPhoto: ['I turn complex', 'workflows into', '*simple*, purposeful', 'digital experiences.'],
+  heroPhoto: true, // show the portrait in the hero (set false for the text-only hero)
+  photo: 'assets/img/sam.jpg', // TODO(Sam): add your photo here — photo slots stay hidden until the file exists
   introAlt: 'I design thoughtful digital experiences that make complex products simple, intuitive, and human.',
   support:
     'Designing enterprise products, dashboards and digital experiences that turn complex workflows into simple experiences.',
-  url: '', // TODO(Sam): e.g. https://yourname.github.io/Sam-Portfolio-/  (used for social previews)
+  url: 'https://samuelms18.github.io/Sam-Portfolio-/', // used for social previews
 
   // Leave blank to hide. Nothing empty is ever rendered on the site.
   email: 'stuvat18@gmail.com',
@@ -121,6 +125,9 @@ export const education = [
 export const projects = [
   {
     slug: 'mantra-production-planner',
+    // TODO(Sam): placeholder stock photo — replace with a real context or project photo
+    photo: 'https://picsum.photos/seed/pharma-factory/1600/900',
+    photoAlt: '',
     title: 'MANTRA',
     subtitle: 'Production Planner',
     summary: 'A manufacturing planning and batch execution platform designed to simplify complex production workflows.',
@@ -162,6 +169,9 @@ export const projects = [
   },
   {
     slug: 'corporate-mis-dashboard',
+    // TODO(Sam): placeholder stock photo — replace with a real context or project photo
+    photo: 'https://picsum.photos/seed/finance-office/1600/900',
+    photoAlt: '',
     title: 'Corporate MIS',
     subtitle: 'Management Dashboard',
     summary: 'A management intelligence platform that transforms SAP and business data into actionable financial and operational insights.',
@@ -203,6 +213,9 @@ export const projects = [
   },
   {
     slug: 'insurance-tracker',
+    // TODO(Sam): placeholder stock photo — replace with a real context or project photo
+    photo: 'https://picsum.photos/seed/policy-docs/1600/900',
+    photoAlt: '',
     title: 'Insurance Tracker',
     subtitle: 'Policy & Renewal Management',
     summary: 'An enterprise insurance management platform for tracking policies, renewals, approvals, and compliance.',
@@ -243,6 +256,9 @@ export const projects = [
   },
   {
     slug: 'csu-online-ordering-portal',
+    // TODO(Sam): placeholder stock photo — replace with a real context or project photo
+    photo: 'https://picsum.photos/seed/pharmacy/1600/900',
+    photoAlt: '',
     title: 'CSU Online Ordering',
     subtitle: 'B2B Pharmaceutical Portal',
     summary: 'A B2B pharmaceutical ordering experience connecting pharmacies, hospitals, and distributors with a streamlined digital ordering workflow.',
@@ -283,6 +299,9 @@ export const projects = [
   },
   {
     slug: 'caplin-connect',
+    // TODO(Sam): placeholder stock photo — replace with a real context or project photo
+    photo: 'https://picsum.photos/seed/workplace/1600/900',
+    photoAlt: '',
     title: 'Caplin Connect',
     subtitle: 'Unified Enterprise Portal',
     summary: 'A unified enterprise platform designed to connect employees with internal digital applications and services.',
@@ -323,6 +342,9 @@ export const projects = [
   },
   {
     slug: 'matrimonial-wordpress-plugin',
+    // TODO(Sam): placeholder stock photo — replace with a real context or project photo
+    photo: 'https://picsum.photos/seed/celebration/1600/900',
+    photoAlt: '',
     title: 'Matrimonial Plugin',
     subtitle: 'Custom WordPress Platform',
     summary: 'A custom WordPress matrimonial platform with dynamic profiles, dependent forms, and AJAX-powered interactions.',

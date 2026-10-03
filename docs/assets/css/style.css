@@ -212,6 +212,36 @@ em { font-family: var(--f-display); font-style: italic; font-weight: 400; color:
 .hero-foot { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 32px; margin-top: 56px; padding-top: 28px; border-top: 1px solid var(--line); }
 .hero-sub { max-width: 46ch; color: var(--muted); font-size: 17px; }
 .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* Hero with portrait: copy left, arched portrait right, footer spans both */
+.hero--photo .hero-canvas { left: 0; right: 0; width: 100%; }
+.hero--photo .hero-inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 400px); column-gap: clamp(32px, 5vw, 80px); align-items: end; }
+.hero--photo .hero-copy { min-width: 0; }
+.hero--photo .hero-title { font-size: clamp(40px, 5.6vw, 88px); }
+.hero--photo .hero-foot { grid-column: 1 / -1; }
+.hero--photo .hero-readout { display: none; }
+.hero-portrait { position: relative; margin: 0; width: 100%; justify-self: end; }
+.hero-portrait::before { content: ''; position: absolute; inset: -14px; border: 1px solid var(--accent); opacity: 0.35; border-radius: 999px 999px 34px 34px; pointer-events: none; }
+.hero-portrait .portrait-img { border-radius: 999px 999px 24px 24px; border-color: var(--line-2); box-shadow: var(--shadow); }
+.hero-portrait .portrait-img { filter: grayscale(0.2) contrast(1.04); transition: filter 0.6s var(--ease); }
+.hero-portrait:hover .portrait-img { filter: none; }
+.hero-tag { position: absolute; left: 16px; right: 16px; bottom: 16px; display: flex; justify-content: space-between; gap: 12px; padding: 10px 16px; border-radius: 999px; border: 1px solid var(--line); background: color-mix(in srgb, var(--bg) 72%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); color: var(--text); font-size: 11px; }
+
+/* Preloader — first visit per session only (class set by the inline head script) */
+.preloader { display: none; }
+.is-loading .preloader, .is-leaving .preloader {
+  position: fixed; inset: 0; z-index: 300; display: flex; flex-direction: column; justify-content: flex-end; gap: 20px;
+  padding: var(--gutter); background: var(--bg); color: var(--text);
+}
+.is-leaving .preloader { transform: translateY(-100%); transition: transform 0.9s var(--ease-out); }
+.is-loading body { overflow: hidden; }
+.is-loading .load { animation-play-state: paused; }
+.pl-mark { font-family: var(--f-display); font-size: clamp(96px, 22vw, 320px); line-height: 0.8; letter-spacing: -0.02em; animation: rise 1s var(--ease-out) both; }
+.pl-mark i { color: var(--accent); font-style: normal; }
+.pl-meta { display: flex; justify-content: space-between; gap: 16px; }
+.pl-count { color: var(--text); font-variant-numeric: tabular-nums; }
+.pl-bar { height: 1px; background: var(--line-2); overflow: hidden; }
+.pl-bar b { display: block; height: 100%; background: var(--accent); transform-origin: left; transform: scaleX(var(--p, 0)); transition: transform 0.2s linear; }
 .scroll-cue { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 10px; font-size: 10px; }
 .scroll-cue i { width: 1px; height: 40px; background: linear-gradient(var(--accent), transparent); animation: drip 2.2s var(--ease) infinite; transform-origin: top; }
 @keyframes drip { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
@@ -276,11 +306,16 @@ em { font-family: var(--f-display); font-style: italic; font-weight: 400; color:
 .facts dt { font: 12px var(--f-mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); padding-top: 3px; }
 .about-story { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(32px, 6vw, 96px); align-items: start; }
 .portrait { position: sticky; top: 110px; }
-.portrait img, .portrait-ph { width: 100%; aspect-ratio: 4/5; border-radius: var(--radius); object-fit: cover; }
-.portrait-ph { display: grid; place-items: center; background: radial-gradient(circle at 30% 20%, var(--glow), transparent 60%), var(--surface); border: 1px solid var(--line); }
-.portrait-ph span { font-family: var(--f-display); font-size: clamp(120px, 18vw, 240px); font-style: italic; color: var(--accent); line-height: 1; }
+.portrait-img { display: block; width: 100%; max-width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+
+/* Context photos in case studies */
+.photo { position: relative; aspect-ratio: 16 / 9; margin: 32px 0 8px; border-radius: var(--radius); overflow: hidden; background: radial-gradient(80% 80% at 20% 0%, hsl(var(--h, 35) 60% 50% / 0.25), transparent 60%), var(--surface); border: 1px solid var(--line); cursor: zoom-in; }
+.photo img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease-out); }
+.photo:hover img { transform: scale(1.03); }
+.has-cursor .photo { cursor: none; }
+.lightbox-stage img { width: 100%; height: auto; border-radius: var(--radius); }
+.about-story--text { grid-template-columns: minmax(0, 46rem); }
 .story p { font-size: clamp(18px, 1.5vw, 21px); margin-bottom: 22px; }
-.story p:first-child::first-letter { font-family: var(--f-display); font-size: 3.4em; float: left; line-height: 0.8; margin: 8px 12px 0 0; color: var(--accent); }
 .story .hero-ctas { margin-top: 36px; }
 
 .principles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
@@ -561,6 +596,9 @@ em { font-family: var(--f-display); font-style: italic; font-weight: 400; color:
   .hero { padding-bottom: 88px; }
   .hero-canvas { right: -30vw; width: 120vw; opacity: 0.55; }
   .hero-readout, .scroll-cue { display: none; }
+  .hero--photo .hero-inner { grid-template-columns: 1fr; row-gap: 40px; }
+  .hero-portrait { justify-self: start; width: min(72%, 300px); margin-left: 14px; }
+  .hero--photo .hero-canvas { opacity: 0.7; }
   .proj, .proj:nth-child(even) { grid-template-columns: 1fr; }
   .proj:nth-child(even) .proj-media { order: 0; }
   .cards { grid-template-columns: 1fr; }

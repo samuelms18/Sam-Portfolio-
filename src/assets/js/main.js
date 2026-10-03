@@ -8,6 +8,31 @@
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
 
+  /* ── Preloader (first visit per session) ────────────────── */
+  if (root.classList.contains('is-loading')) {
+    const count = $('.pl-count');
+    const bar = $('.pl-bar');
+    const t0 = performance.now();
+    const MIN = 1400;
+    let ready = false;
+    const settle = () => (ready = true);
+    Promise.race([
+      Promise.all([document.fonts ? document.fonts.ready : null, new Promise((r) => (document.readyState === 'complete' ? r() : addEventListener('load', r, { once: true })))]),
+      new Promise((r) => setTimeout(r, 3200)),
+    ]).then(settle, settle);
+    (function tick(now) {
+      const p = Math.min(1, (now - t0) / MIN) * (ready ? 1 : 0.9);
+      if (count) count.textContent = String(Math.round(p * 100)).padStart(3, '0');
+      bar?.style.setProperty('--p', p.toFixed(3));
+      if (p < 1) return requestAnimationFrame(tick);
+      try { sessionStorage.setItem('loaded', '1'); } catch (e) {}
+      root.classList.add('is-leaving');
+      root.classList.remove('is-loading');
+      document.dispatchEvent(new CustomEvent('preloaded'));
+      setTimeout(() => root.classList.remove('is-leaving'), 950);
+    })(t0);
+  }
+
   /* ── Theme ─────────────────────────────────────────────── */
   const currentTheme = () => root.dataset.theme || 'dark';
   $$('.theme-toggle').forEach((btn) =>
@@ -160,11 +185,20 @@
 
     const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
     let rotY = 0, tiltX = 0, visible = true, start = performance.now();
+    document.addEventListener('preloaded', () => (start = performance.now()));
+    // When the hero shows a portrait, the sphere wraps around it.
+    const anchor = $('.hero-portrait');
 
     function draw(order, time) {
       ctx.clearRect(0, 0, W, H);
-      const R = Math.min(W, H) * (small ? 0.36 : 0.3);
-      const cx = W * 0.55, cy = H * 0.46;
+      let R = Math.min(W, H) * (small ? 0.36 : 0.3);
+      let cx = W * 0.55, cy = H * 0.46;
+      if (anchor) {
+        const a = anchor.getBoundingClientRect(), c = canvas.getBoundingClientRect();
+        cx = a.left - c.left + a.width / 2;
+        cy = a.top - c.top + a.height / 2;
+        R = Math.max(a.width, a.height) * 0.62;
+      }
       const k = ease(order);
       const sy = Math.sin(rotY), cyR = Math.cos(rotY), sx = Math.sin(tiltX), cxR = Math.cos(tiltX);
       const jitter = (1 - k) * 0.06;
