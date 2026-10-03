@@ -23,18 +23,12 @@ if (!site.email) warnings.push('site.email is empty — email links are hidden.'
 if (!socials.length) warnings.push('No social links set — social icons are hidden.');
 
 const hasPhoto = site.photo && existsSync(join(SRC, site.photo));
-if (!hasPhoto) warnings.push(`Photo not found at src/${site.photo} — showing the portrait placeholder.`);
+if (!hasPhoto) warnings.push(`Photo not found at src/${site.photo} — photo slots are hidden.`);
+const showHeroPhoto = site.heroPhoto && hasPhoto;
 
-// Your photo when it exists, otherwise a silhouette that shows how it will sit.
-function portrait(base) {
-  if (hasPhoto) return `<img class="portrait-img" src="${base}${site.photo}" alt="Portrait of ${esc(site.name)}" width="800" height="1000" decoding="async">`;
-  return `<svg class="portrait-ph" viewBox="0 0 400 500" role="img" aria-label="Photo coming soon">
-    <defs><linearGradient id="sil" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="sil-a"/><stop offset="1" class="sil-b"/></linearGradient></defs>
-    <rect width="400" height="500" class="sil-bg"/>
-    <circle cx="200" cy="190" r="78" fill="url(#sil)" class="sil-shape"/>
-    <path d="M40 500C52 372 128 318 200 318s148 54 160 182Z" fill="url(#sil)" class="sil-shape"/>
-  </svg>`;
-}
+// Your photo. Only rendered once src/<site.photo> exists.
+const portrait = (base) =>
+  `<img class="portrait-img" src="${base}${site.photo}" alt="Portrait of ${esc(site.name)}" width="800" height="1000" decoding="async">`;
 
 // ── Shared chrome ────────────────────────────────────────────
 function layout({ title, description, base = '', active = '', body, bodyClass = '', path = '' }) {
@@ -216,18 +210,18 @@ const resumeBtn = (base, cls = 'btn btn-ghost') => (hasResume ? `<a class="${cls
 function home() {
   const base = '';
   const body = `
-<section class="hero${site.heroPhoto ? ' hero--photo' : ''}">
+<section class="hero${showHeroPhoto ? ' hero--photo' : ''}">
   <canvas class="hero-canvas" aria-hidden="true"></canvas>
   <div class="hero-readout mono" aria-hidden="true"><span>complexity</span><i class="hero-meter"><b></b></i><span>clarity</span></div>
   <div class="container hero-inner">
     <div class="hero-copy">
       <p class="hero-kicker load" style="--d:0"><span class="status"><i class="pulse"></i>Currently at Caplin Point Laboratories</span></p>
       <h1 class="hero-title" aria-label="${esc(site.intro)}">
-        ${(site.heroPhoto ? site.heroLinesPhoto : site.heroLines).map((l, i) => `<span class="line load" style="--d:${i + 1}" aria-hidden="true">${esc(l).replace(/\*(.+?)\*/g, '<em>$1</em>')}</span>`).join('')}
+        ${(showHeroPhoto ? site.heroLinesPhoto : site.heroLines).map((l, i) => `<span class="line load" style="--d:${i + 1}" aria-hidden="true">${esc(l).replace(/\*(.+?)\*/g, '<em>$1</em>')}</span>`).join('')}
       </h1>
     </div>
     ${
-      site.heroPhoto
+      showHeroPhoto
         ? `<figure class="hero-portrait load" style="--d:2">
       ${portrait(base)}
       <figcaption class="hero-tag mono"><span>${esc(site.name)}</span><span>${esc(site.location)}</span></figcaption>
@@ -344,10 +338,8 @@ function about() {
 </section>
 
 <section class="section section-tight">
-  <div class="container about-story">
-    <div class="portrait reveal">
-      ${portrait(base)}
-    </div>
+  <div class="container about-story${hasPhoto ? '' : ' about-story--text'}">
+    ${hasPhoto ? `<div class="portrait reveal">${portrait(base)}</div>` : ''}
     <div class="story reveal">
       ${bio.map((p) => `<p>${esc(p)}</p>`).join('')}
       <p>Based in ${esc(site.location)}.</p>

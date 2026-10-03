@@ -14,7 +14,7 @@ export const site = {
   // Shorter lines used when the hero shows your photo beside the headline.
   heroLinesPhoto: ['I turn complex', 'workflows into', '*simple*, purposeful', 'digital experiences.'],
   heroPhoto: true, // show the portrait in the hero (set false for the text-only hero)
-  photo: 'assets/img/sam.jpg', // TODO(Sam): add your photo here — a silhouette shows until the file exists
+  photo: 'assets/img/sam.jpg', // TODO(Sam): add your photo here — photo slots stay hidden until the file exists
   introAlt: 'I design thoughtful digital experiences that make complex products simple, intuitive, and human.',
   support:
     'Designing enterprise products, dashboards and digital experiences that turn complex workflows into simple experiences.',
