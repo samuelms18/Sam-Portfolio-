@@ -17,7 +17,7 @@ build.mjs            ← zero-dependency static site generator
 docs/                ← generated site (what GitHub Pages serves) — don't edit by hand
 ```
 
-Pages: **Home** · **Work** (filterable grid) · **6 case studies** · **About** · **Contact** · 404.
+Pages (clean URLs): **/** · **/work/** (filterable grid) · **/work/<project>/** (6 case studies) · **/about/** · **/contact/** · 404. Old `.html` addresses redirect to these.
 
 ## Edit → build → preview
 

@@ -35,9 +35,9 @@ function layout({ title, description, base = '', active = '', body, bodyClass = 
   const pageTitle = title ? `${title} — ${site.name}` : `${site.name} — ${site.role}`;
   const desc = description || site.intro;
   const nav = [
-    ['work.html', 'Work'],
-    ['about.html', 'About'],
-    ['contact.html', 'Contact'],
+    ['work/', 'Work'],
+    ['about/', 'About'],
+    ['contact/', 'Contact'],
   ];
   return `<!doctype html>
 <html lang="en">
@@ -72,7 +72,7 @@ try{if(!sessionStorage.getItem('loaded')&&!matchMedia('(prefers-reduced-motion: 
 <div class="progress" aria-hidden="true"></div>
 
 <header class="nav">
-  <a class="brand" href="${base}index.html" aria-label="${esc(site.name)} — home">
+  <a class="brand" href="${base || './'}" aria-label="${esc(site.name)} — home">
     <span class="brand-mark">${esc(site.name)}<i>.</i></span>
     <span class="brand-role">${esc(site.role)}</span>
   </a>
@@ -87,7 +87,7 @@ try{if(!sessionStorage.getItem('loaded')&&!matchMedia('(prefers-reduced-motion: 
 </header>
 <div class="mobile-menu" id="mobile-menu" hidden>
   ${nav.map(([href, label], i) => `<a href="${base}${href}" style="--i:${i}"><small>${pad(i + 1)}</small>${label}</a>`).join('')}
-  <a href="${base}index.html" style="--i:3"><small>04</small>Home</a>
+  <a href="${base || './'}" style="--i:3"><small>04</small>Home</a>
 </div>
 
 <main id="main">
@@ -99,7 +99,7 @@ ${body}
     <p class="footer-cta reveal">Let's make something<br><em>complex feel simple.</em></p>
     <div class="footer-row">
       <div class="footer-links">
-        ${site.email ? `<a href="mailto:${esc(site.email)}" class="link-u">${esc(site.email)}</a>` : `<a href="${base}contact.html" class="link-u">Get in touch →</a>`}
+        ${site.email ? `<a href="mailto:${esc(site.email)}" class="link-u">${esc(site.email)}</a>` : `<a href="${base}contact/" class="link-u">Get in touch →</a>`}
         ${socials.map(([k, url]) => `<a href="${esc(url)}" target="_blank" rel="noopener" class="link-u">${socialNames[k]}</a>`).join('')}
       </div>
       <div class="footer-meta">
@@ -119,7 +119,7 @@ const tags = (list, cls = 'tags') => `<ul class="${cls}">${list.map((t) => `<li>
 
 function projectRow(p, i, base) {
   return `
-  <a class="proj reveal" href="${base}work/${p.slug}.html" data-cursor="View" style="--h:${p.hue}">
+  <a class="proj reveal" href="${base}work/${p.slug}/" data-cursor="View" style="--h:${p.hue}">
     <div class="proj-media tilt">${mock(p.mock, { hue: p.hue })}</div>
     <div class="proj-info">
       <span class="proj-num">${pad(i + 1)} / ${pad(projects.length)}</span>
@@ -133,7 +133,7 @@ function projectRow(p, i, base) {
 
 function card(p, i, base) {
   return `
-  <a class="card reveal" href="${base}work/${p.slug}.html" data-cursor="View" data-cat="${esc(p.category.join('|'))}" style="--h:${p.hue}">
+  <a class="card reveal" href="${base}work/${p.slug}/" data-cursor="View" data-cat="${esc(p.category.join('|'))}" style="--h:${p.hue}">
     <div class="card-media tilt">${mock(p.mock, { hue: p.hue })}</div>
     <div class="card-body">
       <div class="card-top"><span class="mono">${pad(i + 1)}</span><span class="mono">${esc(p.domain)}</span></div>
@@ -246,7 +246,7 @@ ${marquee()}
     ${sectionHead('01', 'Selected work', 'Enterprise products, <em>made human.</em>')}
     <p class="sec-lede reveal">Six projects across manufacturing, finance, insurance, commerce and internal tools. Each case study walks through the problem, my thinking and how the design came together.</p>
     <div class="proj-list">${projects.map((p, i) => projectRow(p, i, base)).join('')}</div>
-    <div class="center reveal"><a class="btn btn-ghost" href="work.html">All case studies →</a></div>
+    <div class="center reveal"><a class="btn btn-ghost" href="work/">All case studies →</a></div>
   </div>
 </section>
 
@@ -256,7 +256,7 @@ ${marquee()}
     <div class="about-grid">
       <div class="about-copy reveal">
         <p class="lead">${esc(bio[0])}</p>
-        <a class="link-u" href="about.html">More about me & how I work →</a>
+        <a class="link-u" href="about/">More about me & how I work →</a>
       </div>
       <dl class="facts reveal">
         <div><dt>Experience</dt><dd>~3 years</dd></div>
@@ -295,7 +295,7 @@ ${marquee()}
     <span class="eyebrow reveal"><b>06</b> Contact</span>
     <h2 class="huge reveal">Have a complex product?<br><em>Let's talk.</em></h2>
     <div class="hero-ctas reveal">
-      <a class="btn btn-primary magnetic" href="contact.html">Start a conversation →</a>
+      <a class="btn btn-primary magnetic" href="contact/">Start a conversation →</a>
       ${resumeBtn(base)}
     </div>
   </div>
@@ -304,7 +304,7 @@ ${marquee()}
 }
 
 function work() {
-  const base = '';
+  const base = '../';
   const cats = ['All', ...new Set(projects.flatMap((p) => p.category))];
   const body = `
 <section class="page-hero">
@@ -323,11 +323,11 @@ function work() {
     <p class="note mono reveal">Visuals are schematic recreations — production data and screens are confidential.</p>
   </div>
 </section>`;
-  return layout({ title: 'Work', description: 'Case studies by Sam — enterprise UX, dashboards and workflow design.', base, active: 'Work', body, path: 'work.html' });
+  return layout({ title: 'Work', description: 'Case studies by Sam — enterprise UX, dashboards and workflow design.', base, active: 'Work', body, path: 'work/' });
 }
 
 function about() {
-  const base = '';
+  const base = '../';
   const body = `
 <section class="page-hero">
   <div class="container">
@@ -343,7 +343,7 @@ function about() {
     <div class="story reveal">
       ${bio.map((p) => `<p>${esc(p)}</p>`).join('')}
       <p>Based in ${esc(site.location)}.</p>
-      <div class="hero-ctas">${resumeBtn(base, 'btn btn-primary')}<a class="btn btn-ghost" href="contact.html">Get in touch →</a></div>
+      <div class="hero-ctas">${resumeBtn(base, 'btn btn-primary')}<a class="btn btn-ghost" href="${base}contact/">Get in touch →</a></div>
     </div>
   </div>
 </section>
@@ -408,11 +408,11 @@ ${
 </section>`
     : ''
 }`;
-  return layout({ title: 'About', description: `About ${site.name} — ${site.role}.`, base, active: 'About', body, path: 'about.html' });
+  return layout({ title: 'About', description: `About ${site.name} — ${site.role}.`, base, active: 'About', body, path: 'about/' });
 }
 
 function contact() {
-  const base = '';
+  const base = '../';
   const body = `
 <section class="page-hero">
   <div class="container">
@@ -439,11 +439,11 @@ function contact() {
     </form>
   </div>
 </section>`;
-  return layout({ title: 'Contact', description: `Contact ${site.name}.`, base, active: 'Contact', body, path: 'contact.html' });
+  return layout({ title: 'Contact', description: `Contact ${site.name}.`, base, active: 'Contact', body, path: 'contact/' });
 }
 
 function caseStudy(p, i) {
-  const base = '../';
+  const base = '../../';
   const next = projects[(i + 1) % projects.length];
   const sections = [
     [
@@ -478,7 +478,7 @@ function caseStudy(p, i) {
   const body = `
 <section class="cs-hero" style="--h:${p.hue}">
   <div class="container">
-    <a class="back mono load" style="--d:0" href="${base}work.html">← All work</a>
+    <a class="back mono load" style="--d:0" href="${base}work/">← All work</a>
     <span class="eyebrow load" style="--d:0">Case study ${pad(i + 1)} · ${esc(p.domain)}</span>
     <h1 class="page-title load" style="--d:1">${esc(p.title)} <em>${esc(p.subtitle)}</em></h1>
     <p class="page-lede load" style="--d:2">${esc(p.summary)}</p>
@@ -517,7 +517,7 @@ function caseStudy(p, i) {
   </div>
 </section>
 
-<a class="next-proj" href="${next.slug}.html" data-cursor="Next" style="--h:${next.hue}">
+<a class="next-proj" href="../${next.slug}/" data-cursor="Next" style="--h:${next.hue}">
   <div class="container">
     <span class="eyebrow">Next case study</span>
     <span class="next-title">${esc(next.title)} <em>${esc(next.subtitle)}</em> <span class="arrow" aria-hidden="true">→</span></span>
@@ -525,7 +525,7 @@ function caseStudy(p, i) {
 </a>
 
 <div class="lightbox" hidden><button type="button" class="lightbox-close" aria-label="Close">×</button><div class="lightbox-stage"></div></div>`;
-  return layout({ title: `${p.title} — ${p.subtitle}`, description: p.summary, base, active: 'Work', body, bodyClass: 'page-case', path: `work/${p.slug}.html` });
+  return layout({ title: `${p.title} — ${p.subtitle}`, description: p.summary, base, active: 'Work', body, bodyClass: 'page-case', path: `work/${p.slug}/` });
 }
 
 function notFound() {
@@ -535,12 +535,12 @@ function notFound() {
     <span class="eyebrow">404</span>
     <h1 class="page-title">This page took a <em>wrong turn.</em></h1>
     <p class="page-lede">Even the best workflows have edge cases.</p>
-    <a class="btn btn-primary" href="index.html">Back home →</a>
+    <a class="btn btn-primary" href="./">Back home →</a>
   </div>
 </section>`;
   // GitHub Pages serves this file at any missing path, so links must be absolute.
   const base = site.url ? new URL(site.url).pathname : '/';
-  return layout({ title: 'Not found', base, body: body.replace('href="index.html"', `href="${base}index.html"`), path: null });
+  return layout({ title: 'Not found', base, body: body.replace('href="./"', `href="${base}"`), path: null });
 }
 
 // ── Write ────────────────────────────────────────────────────
@@ -550,14 +550,28 @@ cpSync(join(SRC, 'assets'), join(OUT, 'assets'), { recursive: true });
 
 const pages = {
   'index.html': home(),
-  'work.html': work(),
-  'about.html': about(),
-  'contact.html': contact(),
+  'work/index.html': work(),
+  'about/index.html': about(),
+  'contact/index.html': contact(),
   '404.html': notFound(),
-  ...Object.fromEntries(projects.map((p, i) => [`work/${p.slug}.html`, caseStudy(p, i)])),
+  ...Object.fromEntries(projects.map((p, i) => [`work/${p.slug}/index.html`, caseStudy(p, i)])),
 };
-for (const [file, html] of Object.entries(pages)) writeFileSync(join(OUT, file), html);
+for (const [file, html] of Object.entries(pages)) {
+  mkdirSync(dirname(join(OUT, file)), { recursive: true });
+  writeFileSync(join(OUT, file), html);
+}
+
+// Old .html addresses (used before clean URLs) forward to the new ones.
+const redirect = (to) =>
+  `<!doctype html><meta charset="utf-8"><title>Moved</title><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url=${to}"><link rel="canonical" href="${to}"><script>location.replace(${JSON.stringify(to)} + location.hash)</script><a href="${to}">Continue</a>\n`;
+const oldUrls = {
+  'work.html': 'work/',
+  'about.html': 'about/',
+  'contact.html': 'contact/',
+  ...Object.fromEntries(projects.map((p) => [`work/${p.slug}.html`, `${p.slug}/`])),
+};
+for (const [file, to] of Object.entries(oldUrls)) writeFileSync(join(OUT, file), redirect(to));
 writeFileSync(join(OUT, '.nojekyll'), '');
 
-console.log(`Built ${Object.keys(pages).length} pages → docs/`);
+console.log(`Built ${Object.keys(pages).length} pages + ${Object.keys(oldUrls).length} redirects → docs/`);
 for (const w of warnings) console.warn(`  ⚠ ${w}`);

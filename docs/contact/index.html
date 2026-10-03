@@ -3,21 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Not found — Sam</title>
-<meta name="description" content="I turn complex workflows into simple, purposeful digital experiences.">
-<meta property="og:title" content="Not found — Sam">
-<meta property="og:description" content="I turn complex workflows into simple, purposeful digital experiences.">
+<title>Contact — Sam</title>
+<meta name="description" content="Contact Sam.">
+<meta property="og:title" content="Contact — Sam">
+<meta property="og:description" content="Contact Sam.">
 <meta property="og:type" content="website">
-
+<meta property="og:url" content="https://samuelms18.github.io/Sam-Portfolio-/contact/">
+<link rel="canonical" href="https://samuelms18.github.io/Sam-Portfolio-/contact/">
 <meta name="theme-color" content="#0b0b0d">
-<link rel="icon" href="/Sam-Portfolio-/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script>(function(){var d=document.documentElement;try{var t=localStorage.getItem('theme');if(t)d.dataset.theme=t;}catch(e){}
 try{if(!sessionStorage.getItem('loaded')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('is-loading');setTimeout(function(){d.classList.remove('is-loading')},5000);}}catch(e){}})();</script>
-<link rel="stylesheet" href="/Sam-Portfolio-/assets/css/style.css">
-<script src="/Sam-Portfolio-/assets/js/main.js" defer></script>
+<link rel="stylesheet" href="../assets/css/style.css">
+<script src="../assets/js/main.js" defer></script>
 </head>
 <body class="">
 <div class="preloader" aria-hidden="true">
@@ -31,12 +32,12 @@ try{if(!sessionStorage.getItem('loaded')&&!matchMedia('(prefers-reduced-motion: 
 <div class="progress" aria-hidden="true"></div>
 
 <header class="nav">
-  <a class="brand" href="/Sam-Portfolio-/" aria-label="Sam — home">
+  <a class="brand" href="../" aria-label="Sam — home">
     <span class="brand-mark">Sam<i>.</i></span>
     <span class="brand-role">UI/UX Designer &amp; UI/UX Developer</span>
   </a>
   <nav class="nav-links" aria-label="Primary">
-    <a href="/Sam-Portfolio-/work/">Work</a><a href="/Sam-Portfolio-/about/">About</a><a href="/Sam-Portfolio-/contact/">Contact</a>
+    <a href="../work/">Work</a><a href="../about/">About</a><a href="../contact/" aria-current="page">Contact</a>
   </nav>
   <div class="nav-actions">
     
@@ -45,18 +46,35 @@ try{if(!sessionStorage.getItem('loaded')&&!matchMedia('(prefers-reduced-motion: 
   </div>
 </header>
 <div class="mobile-menu" id="mobile-menu" hidden>
-  <a href="/Sam-Portfolio-/work/" style="--i:0"><small>01</small>Work</a><a href="/Sam-Portfolio-/about/" style="--i:1"><small>02</small>About</a><a href="/Sam-Portfolio-/contact/" style="--i:2"><small>03</small>Contact</a>
-  <a href="/Sam-Portfolio-/" style="--i:3"><small>04</small>Home</a>
+  <a href="../work/" style="--i:0"><small>01</small>Work</a><a href="../about/" style="--i:1"><small>02</small>About</a><a href="../contact/" style="--i:2"><small>03</small>Contact</a>
+  <a href="../" style="--i:3"><small>04</small>Home</a>
 </div>
 
 <main id="main">
 
-<section class="page-hero nf">
+<section class="page-hero">
   <div class="container">
-    <span class="eyebrow">404</span>
-    <h1 class="page-title">This page took a <em>wrong turn.</em></h1>
-    <p class="page-lede">Even the best workflows have edge cases.</p>
-    <a class="btn btn-primary" href="/Sam-Portfolio-/">Back home →</a>
+    <span class="eyebrow load" style="--d:0">Contact</span>
+    <h1 class="page-title load" style="--d:1">Let's <em>talk.</em></h1>
+    <p class="page-lede load" style="--d:2">Open to UI/UX, Product Design and UI/UX Developer roles — especially enterprise, data-heavy and AI-powered products.</p>
+  </div>
+</section>
+<section class="section section-tight">
+  <div class="container contact-grid">
+    <div class="contact-info reveal">
+      
+      <a class="contact-email" href="mailto:stuvat18@gmail.com">stuvat18@gmail.com</a>
+      <p>UI/UX Designer &amp; UI/UX Developer<br>India</p>
+      <ul class="socials"><li><a href="https://www.behance.net/jerrysamuel2" target="_blank" rel="noopener" class="link-u">Behance ↗</a></li><li><a href="https://dribbble.com/samuel18" target="_blank" rel="noopener" class="link-u">Dribbble ↗</a></li></ul>
+      
+    </div>
+    <form class="contact-form reveal" data-endpoint="" data-email="stuvat18@gmail.com" novalidate>
+      <label><span>Name</span><input name="name" type="text" autocomplete="name" required></label>
+      <label><span>Email</span><input name="email" type="email" autocomplete="email" required></label>
+      <label><span>Message</span><textarea name="message" rows="5" required></textarea></label>
+      <button class="btn btn-primary magnetic" type="submit">Send message →</button>
+      <p class="form-status" role="status" aria-live="polite"></p>
+    </form>
   </div>
 </section>
 </main>
