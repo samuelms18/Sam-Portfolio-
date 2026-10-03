@@ -17,14 +17,14 @@ export const site = {
   url: '', // TODO(Sam): e.g. https://yourname.github.io/Sam-Portfolio-/  (used for social previews)
 
   // Leave blank to hide. Nothing empty is ever rendered on the site.
-  email: '', // TODO(Sam): professional email
+  email: 'stuvat18@gmail.com',
   formEndpoint: '', // Optional: Formspree / Getform endpoint. Without it the form opens an email draft.
   resume: 'assets/Sam-Resume.pdf', // Drop the PDF into src/assets/ — the button is hidden until it exists.
   socials: {
-    linkedin: '', // TODO(Sam)
+    linkedin: '', // TODO(Sam): add when ready
     github: '',
-    behance: '',
-    dribbble: '',
+    behance: 'https://www.behance.net/jerrysamuel2',
+    dribbble: 'https://dribbble.com/samuel18',
   },
 };
 
@@ -106,8 +106,10 @@ export const experience = [
     text: 'Worked on web interfaces and WordPress projects.',
   },
 ];
-// TODO(Sam): add an `education` list here (degree, institution, year) and real certifications, if any.
-export const education = [];
+export const education = [
+  { title: 'MCA — Master of Computer Applications', place: 'SRM University', year: '2022 — 2024', grade: 'CGPA 8.50' },
+  { title: 'BCA — Bachelor of Computer Applications', place: 'SRM University', year: '2019 — 2022', grade: 'CGPA 8.01' },
+];
 
 // ─────────────────────────────────────────────────────────────
 //  Projects / case studies

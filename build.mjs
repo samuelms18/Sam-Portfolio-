@@ -362,13 +362,31 @@ function about() {
   <div class="container">
     ${sectionHead('04', 'Experience', 'Experience<em>.</em>')}
     ${experienceList()}
-    ${
-      education.length
-        ? `<div class="edu reveal"><h3 class="eyebrow">Education</h3>${education.map((e) => `<p><b>${esc(e.title)}</b> — ${esc(e.place)} <span class="mono">${esc(e.year)}</span></p>`).join('')}</div>`
-        : ''
-    }
   </div>
-</section>`;
+</section>
+${
+  education.length
+    ? `
+<section class="section section-alt">
+  <div class="container">
+    ${sectionHead('05', 'Education', 'Education<em>.</em>')}
+    <ol class="timeline">${education
+      .map(
+        (e) => `
+      <li class="tl-item reveal">
+        <div class="tl-period mono">${esc(e.year)}</div>
+        <div class="tl-body">
+          <h3>${esc(e.title)}</h3>
+          <span class="tl-role">${esc(e.place)}</span>
+          ${e.grade ? `<p>${esc(e.grade)}</p>` : ''}
+        </div>
+      </li>`
+      )
+      .join('')}</ol>
+  </div>
+</section>`
+    : ''
+}`;
   return layout({ title: 'About', description: `About ${site.name} — ${site.role}.`, base, active: 'About', body });
 }
 

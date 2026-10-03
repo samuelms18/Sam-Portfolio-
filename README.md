@@ -40,12 +40,12 @@ The build prints a warning for anything that's still missing. Empty links (email
 
 | Item | Where |
 |---|---|
-| Professional email | `site.email` in `src/content.mjs` |
-| LinkedIn / GitHub / Behance / Dribbble (only active ones) | `site.socials` |
+| ~~Professional email~~ ✓ | `site.email` in `src/content.mjs` |
+| LinkedIn (Behance & Dribbble ✓) | `site.socials` |
 | Resume PDF | save as `src/assets/Sam-Resume.pdf` |
 | Profile photo | save as `src/assets/sam.jpg`, then swap the placeholder in `build.mjs` → `about()` (search `TODO(Sam)`) |
 | Full name (shown on Contact only) | `site.fullName` |
-| Education / real certifications (optional) | `education` array in `content.mjs` |
+| ~~Education~~ ✓ · certifications (optional) | `education` array in `content.mjs` |
 | Contact form delivery (optional) | create a free [Formspree](https://formspree.io) form → paste the endpoint into `site.formEndpoint`. Without it the form opens an email draft. |
 | **Review every case study's copy** | `projects` in `content.mjs`. It's drafted from your brief and contains no invented metrics, but make sure each line matches what really happened. |
 | Real screens (where you're allowed to share them) | add `image` support or replace mocks; blur sensitive data first |
